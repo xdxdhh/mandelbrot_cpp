@@ -1,15 +1,15 @@
-# Mandelbrot set
-### Simple multi-threaded program to paint Mandelbrot set picture using C++
+# The Mandelbrot set
+### Simple multi-thread program to paint Mandelbrot set picture using C++
 
 
 ![](Images/mandelbrot.png) 
 
 
 ## Mandelbrot principle:
-We have following iteration rule with z<sub>0</sub> = 0 \
+We have the following iteration rule with z<sub>0</sub> = 0 \
 z<sub>n+1;</sub> = z <sub>n</sub> &sup2; + c \
 Complex number c belongs to Mandelbrot set if its absolute value does not diverge when applying this iteration repeatedly.
-For programming I used condition that c belongs to Mandelbrot if |z <sub>n</sub>| < 2 for n = 0, 1, ... n<sub>max</sub>.
+For programming I used the condition that c belongs to Mandelbrot if |z <sub>n</sub>| < 2 for n = 0, 1, ... n<sub>max</sub>.
 
 I chose n<sub>max</sub> = 50, which is quite a common choice, the boundaries of Mandelbrot depend on that. All complex numbers c that belong to Mandelbrot will be assigned white color.
 
@@ -26,17 +26,18 @@ std::tuple<bool, int> Mandelbrot(std::complex<double> c){
     return std::make_tuple(true, MAX_ITER); 
 }
 ```
-If we count n for which the function starts to diverge for every c, then we can color the Mandelbrot picture. For example we assign the same color for every c that diverges between n = (0,20). Thanks to this number Mandelbrot picture will have many different coloured boundaries.
+
+If we count n, at which the function starts to diverge, for every c, we will be able to color the Mandelbrot picture. For example if we assign the same color for every c that diverges between n = (0,20). Thanks to this number the Mandelbrot picture will have many different coloured boundaries.
 
 ## ppm(portable pixmap file) format:
-Very simple image format, that belongs to Netpbm group. \
+A very simple image format, that belongs to the Netpbm group. \
 Its structure consists of: \
 'P6' to specify binary ppm file type (P3 for ASCII ppm) \
 width and height\
 maximum color value (255 in this case) \
 rows of data
 
-Following function writes our data into ppm format using ios ofstream:
+The following function writes our data into ppm format using ios ofstream:
 ```cpp
 //function to write data into ppm file
 bool save(std::string path){
@@ -58,8 +59,8 @@ bool save(std::string path){
 
 
 ## Using multiple threads:
-Generating the picture using only 1 thread was very long proccess so I used 8 threads , which felt more optimal.
-I used \<thread> C++ library.
+Generating the picture using only 1 thread was a very long proccess so I used 8 threads instead , which felt more optimal.
+I used the \<thread> C++ library.
 
 ```cpp
 const int THREAD_NUM = 8;
@@ -77,5 +78,5 @@ std::thread threads[THREAD_NUM]; //create 8 threads
     }
 ```
 
-Every thread draws 1/8 of the picture, for example 6th thread:
+Every thread draws 1/8 of the picture, for example the 6th thread:
 ![](Images/mand6.png) 
