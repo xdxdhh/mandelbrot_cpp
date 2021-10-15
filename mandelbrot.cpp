@@ -7,14 +7,13 @@
 #include <thread>
 #include <vector>
 
-const int MAX_ITER = 50;
+const int MAX_ITER = 50; 
 const int THREAD_NUM = 8;
 
 
-//rozhodne jestli k cislo do Mandelbrota patri a pokud ne tak u jakeho n zacne byt vetsi nez 2:
+// function to decide if the number 'belongs' to Mandelbrot and if it doesnt it also returns boundary n for which > 2.
 std::tuple<bool, int> Mandelbrot(std::complex<double> c){ 
     std::complex<double> current(0.0, 0.0); 
-
     for(auto i = 1; i < MAX_ITER; i ++){
         if(abs(current) > 2)
             return std::make_tuple(false, i-1);
@@ -125,22 +124,6 @@ int main(){
         threads[i].join(); //aby se cekalo nez dopocitaji vsechny
     }
     
-    imag.save("mandelbrot3.ppm");
+    imag.save("mandelbrot.ppm");
 }
 
-//approach desetinnyma cislama, problemy s nepresnosti
-/* for(double r = start_r; r < stop_r; r+=step_r){ 
-        for(double i = _start_c; i < _stop_c; i+=step_c){
-            c.imag(i);
-            c.real(r);
-            patri = Mandelbrot(c);
-            int y = (i-start_c)*(height/len_c);
-            int x = (r-start_r)*(width/len_r);
-            if(std::get<0>(patri)){
-                (*imag)(x, y) = Color(255);
-            }
-            else{
-                (*imag)(x, y) = (*array_col)[std::get<1>(patri) % 16];
-            }
-        }
-    } */
